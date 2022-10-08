@@ -2,6 +2,7 @@ html,
 body {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 header {
@@ -27,8 +28,9 @@ header > img {
     background-color: rgb(155, 153, 150);
     height: 75vh;
     width: 20vw;
-    margin-top: -17px;
+    margin-top: px;
     padding: 0;
+    overflow: auto;
 }
 
 footer {
@@ -73,4 +75,51 @@ ul {
 .project-header {
     font-size: 25px;
     margin-left: 30px;
+}
+
+.add-project {
+    padding: 7px;
+    margin-bottom: 60px;
+}
+
+.add-project:hover {
+    background-color: rgb(157, 171, 196);
+    cursor: pointer;
+}
+
+.add-form {
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+ button {
+    width: 70px;
+    padding: 7px;
+    margin-top: 10px;
+    border-radius: 7px;
+    border: none;
+
+}
+
+#project {
+    padding: 7px;
+    border-radius: 10px;
+    border: none;
+}
+
+.cancel {
+    margin-left: 15px;
+    background-color: brown;
+}
+
+.add {
+    background-color: rgb(117, 117, 167);
+}
+.hide {
+    display: none;
+}
+
+#project-list {
+    margin-left: 60px;
+    margin-bottom: 20px;
 }

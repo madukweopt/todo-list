@@ -5,12 +5,21 @@ body {
     box-sizing: border-box;
 }
 
+.container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}
+
 header {
     display: flex;
     align-items: center;
     gap: 20px;
     height: 15vh;
     background-color: rgb(183, 199, 214);
+    grid-column: 1/6;
+    grid-row: 1/2;
 }
 
 h1 {
@@ -27,10 +36,12 @@ header > img {
 .sidebar {
     background-color: rgb(155, 153, 150);
     height: 75vh;
-    width: 20vw;
+    
     margin-top: px;
     padding: 0;
     overflow: auto;
+    grid-column: 1/2;
+    grid-row: 2/4;
 }
 
 footer {
@@ -40,6 +51,8 @@ footer {
     justify-content: center;
     align-items: center;
     font-size: 24px;
+    grid-column: 1/6;
+    grid-row: 4/5;
 }
 
 .icons {
@@ -70,7 +83,9 @@ ul {
 }
 
 #main {
-    background-color: rgb(153, 153, 26);
+    background-color: rgb(224, 224, 193);
+    grid-column: 2/6;
+    grid-row: 2/4;
 }
 .project-header {
     font-size: 25px;
@@ -98,7 +113,6 @@ ul {
     margin-top: 10px;
     border-radius: 7px;
     border: none;
-
 }
 
 #project {
@@ -122,4 +136,19 @@ ul {
 #project-list {
     margin-left: 60px;
     margin-bottom: 20px;
+}
+
+#main-header {
+    margin-left: 7rem;
+
+}
+
+#project-list > h4 {
+    padding: 8px;
+    cursor: pointer;
+}
+
+h4:hover {
+    background-color: rgb(157, 171, 196);
+
 }

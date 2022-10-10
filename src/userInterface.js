@@ -1,42 +1,56 @@
 import Project from './project.js'
+import storage from './storage.js'
 
 const domElements = (function() {
     const project = document.querySelector('.add-project');
     const addForm = document.querySelector('.add-form');
     const cancel = document.querySelector('.cancel');
     const add = document.querySelector('.add');
-    let projectList = document.querySelector('#project-list')
-    let projectValue = document.querySelector('#project')
-    let projectArray = []
-  
+    
     function addEvent() {
         project.addEventListener('click', displayAddProject)
         cancel.addEventListener('click', hideProjectBox)
-        add.addEventListener('click', appendProjectName)
+        add.addEventListener('click', addProjectToDom)
+        add.addEventListener('click', storage.getStoredProjects)
+        
+        
     }
 
     function displayAddProject() {
-        addForm.classList.remove('hide');
+        addForm.classList.remove('hide')
         project.style.display = 'none';
 
     }
         
-    function appendProjectName() {
-        const addForm = document.querySelector('.add-form');
-        let projectInput = new Project(projectValue.value);
-        const projectName = document.createElement('h4');
-        projectName.textContent = projectInput.name;
-        projectArray.push(projectInput.name)
-        console.log(projectArray)
-        projectList.appendChild(projectName)
-        addForm.classList.add('hide');
-        project.style.display = 'block';
-    } 
-    
     function hideProjectBox() {
         addForm.classList.add('hide');
         project.style.display = 'block'
-    }    
-return{addEvent}
+    } 
+   
+   function addProjectToDom() {
+        let projectList = document.querySelector('#project-list')
+        let projectValue = document.querySelector('#project')
+        const projectName = document.createElement('h4');
+        const project = document.querySelector('.add-project');
+        const addForm = document.querySelector('.add-form');
+    
+        if(projectValue.value == '') return  
+        let projectInput = new Project(projectValue.value);
+        console.log(projectInput) 
+        addForm.classList.remove('hide');
+        projectName.textContent = projectInput.name;
+        
+        projectList.appendChild(projectName);
+        storage.addProjectToStorage(projectInput.name)
+        addForm.classList.add('hide');
+        project.style.display = 'block';
+        projectValue.value = ''
+        return projectList;
+        } 
+   
+        //   localStorage.clear()
+return{addEvent,
+    
+}
 })()
 export default domElements

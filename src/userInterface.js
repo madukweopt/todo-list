@@ -41,7 +41,7 @@ const domElements = (function() {
         projectName.textContent = projectInput.name;
         
         projectList.appendChild(projectName);
-        storage.addProjectToStorage(projectInput.name)
+        storage.addProjectToStorage(projectInput)
         addForm.classList.add('hide');
         project.style.display = 'block';
         projectValue.value = ''

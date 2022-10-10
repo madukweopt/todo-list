@@ -1,6 +1,7 @@
 class Project {
     constructor(name) {
         this.name = name;
+        this.icon = 'icons/dashboard.png'
     }
 
     setName(name) {

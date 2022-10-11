@@ -7,15 +7,13 @@ const domElements = (function() {
     const cancel = document.querySelector('.cancel');
     const add = document.querySelector('.add');
     let projectValue = document.querySelector('#project')
-    let objectsToBeStored = [];
     
     function addEvent() {
         project.addEventListener('click', displayAddProject)
         cancel.addEventListener('click', hideProjectBox)
-        add.addEventListener('click', createProjectElements)
+        add.addEventListener('click', addProjectToDom)
         add.addEventListener('click', hideAddForm)
-        add.addEventListener('click', storage.getStoredProjects)      
-        
+        add.addEventListener('click', storage.getStoredProjects)         
     }
 
     function displayAddProject() {
@@ -28,74 +26,40 @@ const domElements = (function() {
         project.style.display = 'block'
     }
 
-    function hideAddForm() {
-         
+    function hideAddForm() {  
         const addForm = document.querySelector('.add-form');
         addForm.classList.add('hide');
         project.style.display = 'block';
         projectValue.value = ''
-        }
-
-    const createProjectElements = () => {  
+        }    
+         
+    function createProjectIcon() {
         let projectInput = new Project(projectValue.value);
+        let projectName = document.createElement('h4');  
         let projectNameIcon = document.createElement('img');
-        let projectList = document.querySelector('#project-list')
-        let projectName = document.createElement('h4');
-        let span = document.createElement('span');
-          
-        function createProjectIcon() {     
-            projectNameIcon.src = projectInput.icon;
-            projectNameIcon.classList.add('icons')            
-            return projectNameIcon;
-        } 
-
-        function createProjectName() { 
-            span.textContent = projectInput.name;   
-            return span;
-        }
-
-        function nameAndIcon() {       
-            projectName.appendChild(createProjectIcon());
-            projectName.appendChild(createProjectName());
-            storage.addProjectToStore(projectInput)
-            return projectName;          
-        }
+        let span = document.createElement('span');     
+        projectNameIcon.src = projectInput.icon;
+        projectNameIcon.classList.add('icons')            
+        span.textContent = projectInput.name;  
         
-        function addProjectToDom() { 
-            if(projectValue.value == '') return         
-            projectList.appendChild(nameAndIcon());
-            return projectList;         
-        }
-        addProjectToDom()
-
-        function renderStorageToDom() {
-                 
-            let localItems = JSON.parse(localStorage.getItem(['projectArray']))
-            if(localItems == null) return
-           
-            localItems.forEach(item => {
-                console.log(item)          
-                console.log(item.name)
-                projectNameIcon.src = item.icon;
-                span.textContent = item.name
-                console.log(span)
-                console.log(projectNameIcon)
-                projectName.appendChild(projectNameIcon)
-                projectName.appendChild(span)
-                projectList.appendChild(projectName);       
-
-            });
-        }
-        renderStorageToDom()
-
-        
+        projectName.appendChild(projectNameIcon);
+        projectName.appendChild(span);
+        storage.addProjectToStore(projectInput)         
+         
+        return projectName;
+    
+    }
+    
+    function addProjectToDom() { 
+        if(projectValue.value == '') return  
+        let projectList = document.querySelector('#project-list')       
+        projectList.appendChild(createProjectIcon());
+        return projectList;         
     }
         
-   
-            //  localStorage.clear()
-return{addEvent,
-    createProjectElements
-    
-}
+            //   localStorage.clear()
+    return{addEvent}
+
 })()
+
 export default domElements

@@ -22,7 +22,7 @@ const storage = (function() {
 
       }else if(localStorage.getItem(storeKey) == null){
          localStorage.setItem(storeKey, JSON.stringify([itemToAdd]))
-         
+
       }else{
          const getCurrentStore = localStorage.getItem(storeKey);
           const currentStore = JSON.parse(getCurrentStore);
@@ -32,10 +32,34 @@ const storage = (function() {
       }
    }
 
+   function renderStoredItems() {    
+      let projectList = document.querySelector('#project-list')
+       store = JSON.parse(localStorage.getItem(storeKey))
+       if(localStorage.getItem(storeKey) == null) return
+
+      store.forEach(item => {
+         const projectName = document.createElement('h4');
+         const projectNameIcon = document.createElement('img');
+         const span = document.createElement('span')
+
+         projectNameIcon.classList.add('icons');
+         projectNameIcon.src = item.icon;
+         span.textContent = item.name;
+
+         projectName.appendChild(projectNameIcon);
+         projectName.appendChild(span); 
+         projectList.appendChild(projectName) 
+            
+      });
+   }
+
+   renderStoredItems()
+
    return {
       storeItems,
       addProjectToStore,
       getStoredItems,
+      renderStoredItems,
       store,
       storeKey
    }

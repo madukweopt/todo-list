@@ -42,6 +42,7 @@ const storage = (function() {
          const projectNameIcon = document.createElement('img');
          const span = document.createElement('span')
 
+         projectName.classList.add('attached');
          projectNameIcon.classList.add('icons');
          projectNameIcon.src = item.icon;
          span.textContent = item.name;

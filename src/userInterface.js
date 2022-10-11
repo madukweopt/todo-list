@@ -13,7 +13,7 @@ const domElements = (function() {
         cancel.addEventListener('click', hideProjectBox)
         add.addEventListener('click', addProjectToDom)
         add.addEventListener('click', hideAddForm)
-        add.addEventListener('click', storage.getStoredProjects)         
+        add.addEventListener('click', AddEventsToProjects)         
     }
 
     function displayAddProject() {
@@ -37,7 +37,9 @@ const domElements = (function() {
         let projectInput = new Project(projectValue.value);
         let projectName = document.createElement('h4');  
         let projectNameIcon = document.createElement('img');
-        let span = document.createElement('span');     
+        let span = document.createElement('span'); 
+        
+        projectName.classList.add('attached');
         projectNameIcon.src = projectInput.icon;
         projectNameIcon.classList.add('icons')            
         span.textContent = projectInput.name;  
@@ -56,6 +58,23 @@ const domElements = (function() {
         projectList.appendChild(createProjectIcon());
         return projectList;         
     }
+
+    function AddEventsToProjects() {
+        const attached = document.querySelectorAll('.attached');
+        console.log(attached)
+        for(const attach of attached) {
+            attach.addEventListener('click', function(e) {
+                const mainHeader = document.querySelector('#main-header');
+                const addTask = document.querySelector('.add-task')
+                mainHeader.textContent = e.target.textContent;
+                addTask.classList.remove('hide');
+            })
+
+        }
+    }
+
+    AddEventsToProjects()
+
         
             //   localStorage.clear()
     return{addEvent}

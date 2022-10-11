@@ -60,6 +60,7 @@ footer {
     height: 30px;
     vertical-align: middle;
     margin-right: 8px;
+    pointer-events: none;
 }
 
 p > img {
@@ -157,4 +158,8 @@ h4:hover {
 .icon-text > img {
     vertical-align: middle;
     margin-right: 10px;
+}
+
+.add-task {
+    margin-left: 80px;
 }

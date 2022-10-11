@@ -9,21 +9,24 @@ const storage = (function() {
       localStorage.setItem(storeKey, JSON.stringify(itemToStore))
    }
 
-   function getStoredItems() {
+   function getStoredItems(storeKey) {
     let item = JSON.parse(localStorage.getItem(storeKey))
-    console.log(item)
       
    }
 
    function addProjectToStore(itemToAdd) {
+     
       const projectArray = localStorage.getItem(storeKey);
-      if(projectArray == 'null') {
+      if(projectArray == '') {
          localStorage.setItem(storeKey, JSON.stringify([itemToAdd]))
 
+      }else if(localStorage.getItem(storeKey) == null){
+         localStorage.setItem(storeKey, JSON.stringify([itemToAdd]))
+         
       }else{
          const getCurrentStore = localStorage.getItem(storeKey);
-         const currentStore = JSON.parse(getCurrentStore);
-         console.log(currentStore)
+          const currentStore = JSON.parse(getCurrentStore);
+          console.log(currentStore)
           currentStore.push(itemToAdd)
          storeItems(currentStore);
       }

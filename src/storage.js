@@ -2,47 +2,39 @@ import Project from "./project.js";
 import domElements from "./userInterface.js";
 
 const storage = (function() {
-   let storedItems = [];
-   const storageKey = 'projectArray';
+   let store = [];
+   const storeKey = 'projectArray';
 
-   function storeItems() {
-      localStorage.setItem(storageKey, JSON.stringify(storedItems))
+   function storeItems(itemToStore) {
+      localStorage.setItem(storeKey, JSON.stringify(itemToStore))
    }
 
    function getStoredItems() {
-    let storedItems = JSON.parse(localStorage.getItem(storageKey))
-    console.log(storedItems)
+    let item = JSON.parse(localStorage.getItem(storeKey))
+    console.log(item)
       
    }
 
-   function addProjectToStorage(projectName) {
-      const newProject = new Project(projectName);
-      storedItems.push(newProject.name);
-      storeItems()
-      
+   function addProjectToStore(itemToAdd) {
+      const projectArray = localStorage.getItem(storeKey);
+      if(projectArray == 'null') {
+         localStorage.setItem(storeKey, JSON.stringify([itemToAdd]))
+
+      }else{
+         const getCurrentStore = localStorage.getItem(storeKey);
+         const currentStore = JSON.parse(getCurrentStore);
+         console.log(currentStore)
+          currentStore.push(itemToAdd)
+         storeItems(currentStore);
+      }
    }
-
-   function renderStoredItems() { 
-      if(storedItems = '') return
-      let projectList = document.querySelector('#project-list')
-       storedItems = JSON.parse(localStorage.getItem(storageKey))
-      storedItems.forEach(item => {
-         const projectName = document.createElement('h4');
-         projectName.textContent = item; 
-         projectList.appendChild(projectName)    
-      });
-   }
-
-
-
 
    return {
       storeItems,
-      addProjectToStorage,
+      addProjectToStore,
       getStoredItems,
-      renderStoredItems,
-      storedItems,
-      storageKey
+      store,
+      storeKey
    }
 })()
 

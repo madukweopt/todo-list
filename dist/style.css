@@ -36,8 +36,6 @@ header > img {
 .sidebar {
     background-color: rgb(155, 153, 150);
     height: 75vh;
-    
-    margin-top: px;
     padding: 0;
     overflow: auto;
     grid-column: 1/2;
@@ -56,11 +54,12 @@ footer {
 }
 
 .icons {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     vertical-align: middle;
     margin-right: 8px;
     pointer-events: none;
+    
 }
 
 p > img {
@@ -136,7 +135,7 @@ ul {
 }
 
 #project-list {
-    margin-left: 60px;
+    margin-left: 40px;
     margin-bottom: 20px;
 }
 
@@ -150,9 +149,12 @@ ul {
     cursor: pointer;
 }
 
+h4 {
+    position: relative;
+}
+
 h4:hover {
     background-color: rgb(157, 171, 196);
-
 }
 
 .icon-text > img {
@@ -162,4 +164,25 @@ h4:hover {
 
 .add-task {
     margin-left: 80px;
+    font-size: 17px;
+    vertical-align: middle;
 }
+
+.delete-icon {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    top: 14px;
+}
+
+h4 .delete-icon {
+    display: none;
+}
+
+h4:hover .delete-icon{
+    background-color: rgb(157, 171, 196);
+    display: block;
+   
+}
+

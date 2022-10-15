@@ -6,6 +6,8 @@ const domElements = (function() {
     const addForm = document.querySelector('.add-form');
     const cancel = document.querySelector('.cancel');
     const add = document.querySelector('.add');
+    const deleteIcon =document.querySelector('.delete-icon');
+    console.log(deleteIcon)
     let projectValue = document.querySelector('#project')
     
     function addEvent() {
@@ -13,7 +15,9 @@ const domElements = (function() {
         cancel.addEventListener('click', hideProjectBox)
         add.addEventListener('click', addProjectToDom)
         add.addEventListener('click', hideAddForm)
-        add.addEventListener('click', AddEventsToProjects)         
+        add.addEventListener('click', AddEventsToProjects) 
+        add.addEventListener('click', storage.deleteProject)
+       
     }
 
     function displayAddProject() {
@@ -33,46 +37,50 @@ const domElements = (function() {
         projectValue.value = ''
         }    
          
-    function createProjectIcon() {
+    function createProjectElements() {
         let projectInput = new Project(projectValue.value);
         let projectName = document.createElement('h4');  
         let projectNameIcon = document.createElement('img');
         let span = document.createElement('span'); 
+        const deleteIcon = document.createElement('img');
         
         projectName.classList.add('attached');
         projectNameIcon.src = projectInput.icon;
-        projectNameIcon.classList.add('icons')            
+        projectNameIcon.classList.add('icons')
+        deleteIcon.src = 'icons/bin.png' 
+        deleteIcon.classList.add('delete-icon');           
         span.textContent = projectInput.name;  
         
         projectName.appendChild(projectNameIcon);
         projectName.appendChild(span);
-        storage.addProjectToStore(projectInput)         
-         
+        projectName.appendChild(deleteIcon);
+        storage.addProjectToStore(projectInput)
+           
         return projectName;
     
     }
-    
+
     function addProjectToDom() { 
         if(projectValue.value == '') return  
         let projectList = document.querySelector('#project-list')       
-        projectList.appendChild(createProjectIcon());
-        return projectList;         
+        projectList.appendChild(createProjectElements());        
+    
     }
-
+ 
     function AddEventsToProjects() {
         const attached = document.querySelectorAll('.attached');
-        console.log(attached)
         for(const attach of attached) {
             attach.addEventListener('click', function(e) {
+             
                 const mainHeader = document.querySelector('#main-header');
                 const addTask = document.querySelector('.add-task')
                 mainHeader.textContent = e.target.textContent;
                 addTask.classList.remove('hide');
+            
             })
-
         }
     }
-
+   
     AddEventsToProjects()
 
         

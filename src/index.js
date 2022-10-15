@@ -4,10 +4,5 @@ import storage from "./storage.js"
 
 
  domElements.addEvent()
- 
- 
- 
- 
- 
- 
+ storage.deleteProject()
  

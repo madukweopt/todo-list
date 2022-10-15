@@ -2,43 +2,41 @@ import Project from "./project.js";
 import domElements from "./userInterface.js";
 
 const storage = (function() {
-   let store = [];
-   const storeKey = 'projectArray';
-
+  
    function storeItems(itemToStore) {
-      localStorage.setItem(storeKey, JSON.stringify(itemToStore))
+      localStorage.setItem('projectArray', JSON.stringify(itemToStore))
    }
 
-   function getStoredItems(storeKey) {
-    let item = JSON.parse(localStorage.getItem(storeKey))
+   function getStoredItems() {
       
+    JSON.parse(localStorage.getItem('projectArray'))   
    }
 
-   function addProjectToStore(itemToAdd) {
-     
+   function addProjectToStore(itemsToAdd) {
+      let storeKey = 'projectArray'
+      let store = []
+   
       const projectArray = localStorage.getItem(storeKey);
       if(projectArray == '') {
-         localStorage.setItem(storeKey, JSON.stringify([itemToAdd]))
+         localStorage.setItem(storeKey, JSON.stringify([itemsToAdd]))
 
       }else if(localStorage.getItem(storeKey) == null){
-         localStorage.setItem(storeKey, JSON.stringify([itemToAdd]))
+         localStorage.setItem(storeKey, JSON.stringify([itemsToAdd]))
 
       }else{
          store = JSON.parse(localStorage.getItem(storeKey));
           console.log(store)
-          store.push(itemToAdd)
+          store.push(itemsToAdd)
          storeItems(store);
       }
    }
 
+   
    function renderStoredItems() {   
-      if(localStorage.length == null || localStorage.getItem(storeKey) == '') return 
+      
       let projectList = document.querySelector('#project-list')
-       store = JSON.parse(localStorage.getItem(storeKey))
-       
-       console.log(store)
-       
-
+       let store = JSON.parse(localStorage.getItem('projectArray')) 
+       if(localStorage.getItem('projectArray') == null || localStorage.getItem('projectArray') == '' || localStorage.getItem('projectArray') == undefined) return
          store.forEach(item => {
          const projectName = document.createElement('h4');
          const projectNameIcon = document.createElement('img');
@@ -61,20 +59,26 @@ const storage = (function() {
          
       });
    }
+
 renderStoredItems()
 
-
    function deleteProject() {
+      const mainHeader = document.querySelector('#main-header');
       let projectList = document.querySelector('#project-list')
       const deleteIcon = document.querySelectorAll('.delete-icon');
+      const addTask = document.querySelector('.add-task')
       deleteIcon.forEach(icon => {
         
          icon.addEventListener('click', function(e) {
-         store = JSON.parse(localStorage.getItem(storeKey));
+            e.stopPropagation()
+        let store = JSON.parse(localStorage.getItem('projectArray'));
          console.log(store)
+         mainHeader.textContent = '';
          e.target.parentElement.remove()
+         addTask.style.display = 'none';
          store = store.filter((p) => p.name !== e.target.parentElement.textContent)  
-         localStorage.setItem(storeKey, JSON.stringify(store));          
+         localStorage.setItem('projectArray', JSON.stringify(store));
+                   
           })
           
       });
@@ -88,10 +92,8 @@ renderStoredItems()
       storeItems,
       addProjectToStore,
       getStoredItems,
-
       deleteProject,
-      store,
-      storeKey
+
    }
 })()
 

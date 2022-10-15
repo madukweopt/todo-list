@@ -71,11 +71,12 @@ const domElements = (function() {
         const attached = document.querySelectorAll('.attached');
         for(const attach of attached) {
             attach.addEventListener('click', function(e) {
-             
+                
+                e.stopPropagation()
                 const mainHeader = document.querySelector('#main-header');
                 const addTask = document.querySelector('.add-task')
                 mainHeader.textContent = e.target.textContent;
-                addTask.classList.remove('hide');
+                addTask.style.display = 'block';
             
             })
         }
@@ -85,7 +86,9 @@ const domElements = (function() {
 
         
             //   localStorage.clear()
-    return{addEvent}
+    return{addEvent,
+         createProjectElements,
+       }
 
 })()
 

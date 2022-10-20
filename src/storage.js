@@ -84,9 +84,19 @@ renderStoredItems()
           
       });
   }
- 
-  
   deleteProject()
+
+  function addToDoToStorage(itemToAdd) {
+   const mainHeader = document.querySelector('#main-header');
+   let array = JSON.parse(localStorage.getItem('projectArray'))
+   let findObj = array.find((item) => item.name == mainHeader.textContent);
+   let projectArray = array.filter((props) => props.name !== mainHeader.textContent)
+
+   findObj.todos.push(itemToAdd)
+   projectArray.push(findObj)
+   localStorage.setItem('projectArray', JSON.stringify(projectArray))
+
+  }
   
    
    return {
@@ -94,6 +104,8 @@ renderStoredItems()
       addProjectToStore,
       getStoredItems,
       deleteProject,
+      renderStoredItems,
+      addToDoToStorage,
 
    }
 })()

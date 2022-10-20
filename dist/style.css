@@ -232,7 +232,7 @@ select {
     transform: scale(1.2);
 }
 
-.add-form {
+.add-formBtn {
     margin-right: 25px;
     background-color: darkcyan;
 }

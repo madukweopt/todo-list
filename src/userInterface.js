@@ -1,5 +1,6 @@
 import Project from './project.js'
 import storage from './storage.js'
+import Todo from './todo.js'
 
 const domElements = (function() {
     const project = document.querySelector('.add-project');
@@ -8,17 +9,27 @@ const domElements = (function() {
     const add = document.querySelector('.add');
     const deleteIcon =document.querySelector('.delete-icon');
     let projectValue = document.querySelector('#project')
+
      const addTodo = document.querySelector('.add-todo');
      const form = document.querySelector('form');
+     const cancelForm = document.querySelector('.cancel-form');
+     let titleInput = document.querySelector('#title');
+     console.log(title)
+     let descriptionInput = document.querySelector('#description');
+     let priorityInput = document.querySelector('#importance');
+     let dateInput = document.querySelector('#date'); 
+     const addInputs = document.querySelector('.add-formBtn');
     
     function addEvent() {
-        project.addEventListener('click', displayAddProject)
-        cancel.addEventListener('click', hideProjectBox)
-        add.addEventListener('click', addProjectToDom)
-        add.addEventListener('click', hideAddForm)
-        add.addEventListener('click', AddEventsToProjects) 
-        add.addEventListener('click', storage.deleteProject)
-        addTodo.addEventListener('click', displayAddToDoForm);    
+        project.addEventListener('click', displayAddProject);
+        cancel.addEventListener('click', hideProjectBox);
+        add.addEventListener('click', addProjectToDom);
+        add.addEventListener('click', hideAddForm);
+        add.addEventListener('click', AddEventsToProjects); 
+        add.addEventListener('click', storage.deleteProject);
+        addTodo.addEventListener('click', displayAddToDoForm);
+        addInputs.addEventListener('click', addFormInputsToProject);
+        cancelForm.addEventListener('click', cancelAddToDoForm);    
     }
 
     function displayAddProject() {
@@ -45,7 +56,22 @@ const domElements = (function() {
         let span = document.createElement('span'); 
         const deleteIcon = document.createElement('img');
         const form = document.querySelector('form');
+
+       /* 
+        let projectArray =[]
+        let projectNames = []
+        projectArray = JSON.parse(localStorage.getItem('projectArray'));
         
+        projectArray.forEach(obj => {
+            
+              projectNames.push(obj.name) 
+        })
+        if(projectNames.includes(projectValue.value)) {
+            alert('This project already exists');
+            return;
+        }
+            
+*/
         projectName.classList.add('attached');
         projectNameIcon.src = projectInput.icon;
         projectNameIcon.classList.add('icons')
@@ -57,13 +83,15 @@ const domElements = (function() {
         projectName.appendChild(span);
         projectName.appendChild(deleteIcon);
         storage.addProjectToStore(projectInput)
+
            
         return projectName;
     
     }
 
     function addProjectToDom() { 
-        if(projectValue.value == '') return  
+        if(projectValue.value == '') return
+            
         let projectList = document.querySelector('#project-list')       
         projectList.appendChild(createProjectElements());        
     
@@ -91,8 +119,26 @@ const domElements = (function() {
         addTodo.style.display = 'none'
         form.classList.remove('hide');
     }
+
+    function cancelAddToDoForm() {
+        form.classList.add('hide');
+        addTodo.style.display = 'block'   
+    }
+
+    function addFormInputsToProject() {
         
-            //   localStorage.clear()
+        let title = titleInput.value
+        let description = descriptionInput.value;
+        let priority = priorityInput.value;
+        let date = dateInput.value;
+        let todo = new Todo(title, description, priority, date);
+        console.log(todo)
+        storage.addToDoToStorage(todo);
+
+    }
+    
+      
+            //    localStorage.clear()
     return{addEvent,
          createProjectElements,
        }

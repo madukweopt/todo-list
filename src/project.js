@@ -16,7 +16,10 @@ class Project {
     getTodos() {
         return this.todos;
     }
-    deleteProject
+    
+    addTodo(todo) {
+        this.todos.push(todo);
+    }
 }
 
 export default Project

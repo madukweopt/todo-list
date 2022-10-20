@@ -32,7 +32,32 @@
         </div>
         <main id="main">
             <h1 id="main-header"></h1>
-            <p class="add-task hide"><img class="icons" src="icons/plus.png" alt="#">Add task</p>
+            <p class="add-todo hide"><img class="icons" src="icons/plus.png" alt="#">Add todo</p>
+            <form class="hide" action="#">
+                <fieldset>
+                    <legend>Add Todo</legend>
+                    <div>
+                        <input type="text" id="title" placeholder="Title">
+                    </div>
+                    <div>
+                        <input type="text" id="description" placeholder="Description">
+                    </div>
+                    <div>
+                        <select name="importance" id="importance">
+                            <option value="not-important">Not Important</option>
+                            <option value="important">Important</option>
+                            <option value="very-important">Very Important</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="date" id="date">
+                    </div>
+                    <div>
+                        <button type="button" class="add-form form-btn">Add</button>
+                        <button type="button" class="cancel-form form-btn">Cancel</button>
+                    </div>
+                </fieldset>        
+            </form>       
         </main>
         <footer>
         <div>copyright © 2022 Madukwepascal</div> 

@@ -66,7 +66,8 @@ renderStoredItems()
       const mainHeader = document.querySelector('#main-header');
       let projectList = document.querySelector('#project-list')
       const deleteIcon = document.querySelectorAll('.delete-icon');
-      const addTask = document.querySelector('.add-task')
+      const addTodo = document.querySelector('.add-todo')
+      console.log(addTodo)
       deleteIcon.forEach(icon => {
         
          icon.addEventListener('click', function(e) {
@@ -75,7 +76,7 @@ renderStoredItems()
          console.log(store)
          mainHeader.textContent = '';
          e.target.parentElement.remove()
-         addTask.style.display = 'none';
+         addTodo.style.display = 'none';
          store = store.filter((p) => p.name !== e.target.parentElement.textContent)  
          localStorage.setItem('projectArray', JSON.stringify(store));
                    

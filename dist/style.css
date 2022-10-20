@@ -162,10 +162,15 @@ h4:hover {
     margin-right: 10px;
 }
 
-.add-task {
+.add-todo {
     margin-left: 80px;
     font-size: 17px;
     vertical-align: middle;
+    cursor: pointer;
+}
+
+.add-todo:hover {
+    color: rgb(157, 171, 196);;
 }
 
 .delete-icon {
@@ -186,3 +191,61 @@ h4:hover .delete-icon{
    
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    width: 500px;
+    background-color: rgb(95, 95, 148);
+
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+input {
+    width: 300px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+select {
+    width: 325px;
+    padding: 10px;
+    font-size: 1rem;
+
+}
+
+.form-btn {
+    width: 100px;
+    padding: 8px;
+    font-size: 1rem;
+} 
+
+.form-btn:hover {
+    transform: scale(1.2);
+}
+
+.add-form {
+    margin-right: 25px;
+    background-color: darkcyan;
+}
+
+.cancel-form {
+    margin-left: 25px;
+    background-color: brown;
+}
+
+#main {
+    font-size: 1rem;
+}
+
+legend {
+    font-size: 1.3rem;
+}

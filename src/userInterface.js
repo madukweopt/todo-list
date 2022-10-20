@@ -7,8 +7,9 @@ const domElements = (function() {
     const cancel = document.querySelector('.cancel');
     const add = document.querySelector('.add');
     const deleteIcon =document.querySelector('.delete-icon');
-    console.log(deleteIcon)
     let projectValue = document.querySelector('#project')
+     const addTodo = document.querySelector('.add-todo');
+     const form = document.querySelector('form');
     
     function addEvent() {
         project.addEventListener('click', displayAddProject)
@@ -17,7 +18,7 @@ const domElements = (function() {
         add.addEventListener('click', hideAddForm)
         add.addEventListener('click', AddEventsToProjects) 
         add.addEventListener('click', storage.deleteProject)
-       
+        addTodo.addEventListener('click', displayAddToDoForm);    
     }
 
     function displayAddProject() {
@@ -43,6 +44,7 @@ const domElements = (function() {
         let projectNameIcon = document.createElement('img');
         let span = document.createElement('span'); 
         const deleteIcon = document.createElement('img');
+        const form = document.querySelector('form');
         
         projectName.classList.add('attached');
         projectNameIcon.src = projectInput.icon;
@@ -74,9 +76,10 @@ const domElements = (function() {
                 
                 e.stopPropagation()
                 const mainHeader = document.querySelector('#main-header');
-                const addTask = document.querySelector('.add-task')
+                const addTodo = document.querySelector('.add-todo')
+                console.log(addTodo)
                 mainHeader.textContent = e.target.textContent;
-                addTask.style.display = 'block';
+                addTodo.classList.remove('hide');
             
             })
         }
@@ -84,6 +87,10 @@ const domElements = (function() {
    
     AddEventsToProjects()
 
+    function displayAddToDoForm() {
+        addTodo.style.display = 'none'
+        form.classList.remove('hide');
+    }
         
             //   localStorage.clear()
     return{addEvent,

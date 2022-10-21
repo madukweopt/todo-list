@@ -107,7 +107,7 @@ const domElements = (function() {
                 const addTodo = document.querySelector('.add-todo')
                 console.log(addTodo)
                 mainHeader.textContent = e.target.textContent;
-                addTodo.classList.remove('hide');
+                addTodo.style.display = 'block'
             
             })
         }
@@ -134,6 +134,8 @@ const domElements = (function() {
         let todo = new Todo(title, description, priority, date);
         console.log(todo)
         storage.addToDoToStorage(todo);
+        form.style.display = 'none';
+        addTodo.style.display = 'block';
 
     }
     

@@ -14,7 +14,6 @@ const domElements = (function() {
      const form = document.querySelector('form');
      const cancelForm = document.querySelector('.cancel-form');
      let titleInput = document.querySelector('#title');
-     console.log(title)
      let descriptionInput = document.querySelector('#description');
      let priorityInput = document.querySelector('#importance');
      let dateInput = document.querySelector('#date'); 
@@ -27,8 +26,10 @@ const domElements = (function() {
         add.addEventListener('click', hideAddForm);
         add.addEventListener('click', AddEventsToProjects); 
         add.addEventListener('click', storage.deleteProject);
+        
         addTodo.addEventListener('click', displayAddToDoForm);
         addInputs.addEventListener('click', addFormInputsToProject);
+        addInputs.addEventListener('click', appendTodoListTittlesToDom);
         cancelForm.addEventListener('click', cancelAddToDoForm);    
     }
 
@@ -107,8 +108,9 @@ const domElements = (function() {
                 const addTodo = document.querySelector('.add-todo')
                 console.log(addTodo)
                 mainHeader.textContent = e.target.textContent;
-                addTodo.style.display = 'block'
-            
+                addTodo.style.display = 'block' 
+                createTodoListTitles()
+                
             })
         }
     }
@@ -120,13 +122,13 @@ const domElements = (function() {
         form.classList.remove('hide');
     }
 
+
     function cancelAddToDoForm() {
         form.classList.add('hide');
         addTodo.style.display = 'block'   
     }
 
-    function addFormInputsToProject() {
-        
+    function addFormInputsToProject() {      
         let title = titleInput.value
         let description = descriptionInput.value;
         let priority = priorityInput.value;
@@ -134,13 +136,34 @@ const domElements = (function() {
         let todo = new Todo(title, description, priority, date);
         console.log(todo)
         storage.addToDoToStorage(todo);
-        form.style.display = 'none';
+        form.classList.add('hide');
         addTodo.style.display = 'block';
-
+        
     }
-    
+
+    function createTodoListTitles() {
+        
+        const titleAndDate = document.createElement('p')
+        const todoTitle = document.createElement('div');
+        const todoDate = document.createElement('span');
+        
+        titleAndDate.classList.add('title-and-date');
+        todoTitle.textContent = titleInput.value;
+        todoDate.textContent = dateInput.value;
+        titleAndDate.appendChild(todoTitle);
+        titleAndDate.appendChild(todoDate);
+
+        return titleAndDate;        
+    }
+
+    function appendTodoListTittlesToDom() {
+        const section = document.querySelector('section');    
+        section.appendChild(createTodoListTitles())
+        addTodo.style.display = 'block'      
+    }
+ 
       
-            //    localStorage.clear()
+                // localStorage.clear()
     return{addEvent,
          createProjectElements,
        }

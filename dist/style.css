@@ -244,8 +244,13 @@ select {
 
 #main {
     font-size: 1rem;
+    overflow: scroll;
 }
 
 legend {
     font-size: 1.3rem;
+}
+.title-and-date{
+    display: flex;
+    justify-content: space-around;
 }

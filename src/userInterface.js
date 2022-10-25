@@ -97,21 +97,44 @@ const domElements = (function() {
         projectList.appendChild(createProjectElements());        
     
     }
- 
+    
     function AddEventsToProjects() {
+        
         const attached = document.querySelectorAll('.attached');
         for(const attach of attached) {
+            const mainHeader = document.querySelector('#main-header');
+            const section = document.querySelector('section');
+            console.log(mainHeader)
             attach.addEventListener('click', function(e) {
                 
                 e.stopPropagation()
-                const mainHeader = document.querySelector('#main-header');
+                section.innerHTML = ''
                 const addTodo = document.querySelector('.add-todo')
                 console.log(addTodo)
                 mainHeader.textContent = e.target.textContent;
-                addTodo.style.display = 'block' 
-                createTodoListTitles()
+                addTodo.style.display = 'block'
                 
+                const todos = JSON.parse(localStorage.getItem('projectArray'))
+                console.log(todos)
+                let selectedTodo = todos.find((todo) => todo.name == e.target.textContent);
+                let selectedTodos = selectedTodo.todos;
+                console.log(selectedTodos)
+               
+                selectedTodos.forEach(todo => {
+                    
+                    const titleAndDate = document.createElement('p');
+                    titleAndDate.classList.add('title-and-date')
+                    const title = document.createElement('div');
+                    const date = document.createElement('span');
+                    titleAndDate.appendChild(title);
+                    titleAndDate.appendChild(date);
+                    title.textContent = todo.title;
+                    date.textContent = todo.date;
+                    section.appendChild(titleAndDate);       
+                });
+                           
             })
+           
         }
     }
    
@@ -136,7 +159,7 @@ const domElements = (function() {
         let todo = new Todo(title, description, priority, date);
         console.log(todo)
         storage.addToDoToStorage(todo);
-        form.classList.add('hide');
+        form.classList.add('hide')
         addTodo.style.display = 'block';
         
     }
@@ -159,11 +182,10 @@ const domElements = (function() {
     function appendTodoListTittlesToDom() {
         const section = document.querySelector('section');    
         section.appendChild(createTodoListTitles())
-        addTodo.style.display = 'block'      
+        addTodo.classList.remove('hide') 
+        form.classList.add('hide')     
     }
- 
-      
-                // localStorage.clear()
+                //  localStorage.clear()
     return{addEvent,
          createProjectElements,
        }
@@ -171,3 +193,4 @@ const domElements = (function() {
 })()
 
 export default domElements
+

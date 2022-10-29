@@ -84,10 +84,8 @@ const domElements = (function() {
         projectName.appendChild(span);
         projectName.appendChild(deleteIcon);
         storage.addProjectToStore(projectInput)
-
            
         return projectName;
-    
     }
 
     function addProjectToDom() { 
@@ -122,12 +120,27 @@ const domElements = (function() {
                
                 selectedTodos.forEach(todo => {
                     
+                    const checkbox = document.createElement('input');
+                    const close = document.createElement('img');
+                    close.src = 'icons/close.png';
+                    close.classList.add('icon');
+                    close.classList.add('close')
+                    const edit = document.createElement('img');
+                    edit.src = 'icons/edit.png';
+                    edit.classList.add('icon');
+                    checkbox.type = 'checkbox'
+                    checkbox.setAttribute('id', 'checkbox');
+                    
                     const titleAndDate = document.createElement('p');
                     titleAndDate.classList.add('title-and-date')
                     const title = document.createElement('div');
                     const date = document.createElement('span');
+
+                    titleAndDate.appendChild(checkbox);
                     titleAndDate.appendChild(title);
-                    titleAndDate.appendChild(date);
+                    titleAndDate.appendChild(date); 
+                    titleAndDate.appendChild(edit)
+                    titleAndDate.appendChild(close);                
                     title.textContent = todo.title;
                     date.textContent = todo.date;
                     section.appendChild(titleAndDate);       
@@ -144,7 +157,6 @@ const domElements = (function() {
         addTodo.style.display = 'none'
         form.classList.remove('hide');
     }
-
 
     function cancelAddToDoForm() {
         form.classList.add('hide');
@@ -165,7 +177,18 @@ const domElements = (function() {
     }
 
     function createTodoListTitles() {
+        const checkbox = document.createElement('input');
+        const close = document.createElement('img');
+        close.src = 'icons/close.png';
+        close.classList.add('icon');
+        close.classList.add('close')
+        const edit = document.createElement('img');
+        edit.src = 'icons/edit.png';
+        edit.classList.add('icon');
+        checkbox.type = 'checkbox'
+        checkbox.setAttribute('id', 'checkbox');
         
+
         const titleAndDate = document.createElement('p')
         const todoTitle = document.createElement('div');
         const todoDate = document.createElement('span');
@@ -173,9 +196,11 @@ const domElements = (function() {
         titleAndDate.classList.add('title-and-date');
         todoTitle.textContent = titleInput.value;
         todoDate.textContent = dateInput.value;
+        titleAndDate.appendChild(checkbox)
         titleAndDate.appendChild(todoTitle);
         titleAndDate.appendChild(todoDate);
-
+        titleAndDate.appendChild(edit);
+        titleAndDate.appendChild(close);
         return titleAndDate;        
     }
 

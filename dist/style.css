@@ -170,7 +170,7 @@ h4:hover {
 }
 
 .add-todo:hover {
-    color: rgb(157, 171, 196);;
+    color: rgb(157, 171, 196);
 }
 
 .delete-icon {
@@ -209,7 +209,7 @@ fieldset {
     padding: 25px;
 }
 
-input {
+ form > input {
     width: 300px;
     padding: 10px;
     font-size: 1rem;
@@ -252,12 +252,59 @@ legend {
 }
 .title-and-date{
     display: flex;
-    justify-content: space-between;
-    margin-left: 120px;
-    margin-right: 300px;
+    margin-left: 50px;
+    margin-right: 100px;
+    padding: 8px;
+    gap: 100px;
+    
+    
+}
+
+.title-and-date:hover {
+    background-color: rgb(157, 171, 196);
+    
+    
+}
+
+.title-and-date > img[src*='close'] {
+    padding-top: 10px;
+    
+    
+}
+
+.title-and-date > img[src*='edit'] {
+    padding-top: 10px;
+    
+    
+}
+
+.title-and-date > input {
+    
+
+
+}
+
+.title-and-date > div {
+    width: 150px;
+
 }
 
 section {
     margin-bottom: 50px;
     font-size: 20px;
+
+}
+
+.title-and-date .icon {
+    display: none;
+}
+
+.title-and-date:hover .icon {
+    display: block;
+}
+
+.icon {
+    width: 15px;
+    height: 15px;
+
 }

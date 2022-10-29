@@ -71,8 +71,8 @@ renderStoredItems()
       deleteIcon.forEach(icon => {
         
          icon.addEventListener('click', function(e) {
-            e.stopPropagation()
-        let store = JSON.parse(localStorage.getItem('projectArray'));
+         e.stopPropagation()
+         let store = JSON.parse(localStorage.getItem('projectArray'));
          console.log(store)
          mainHeader.textContent = '';
          e.target.parentElement.remove()
@@ -98,7 +98,6 @@ renderStoredItems()
    localStorage.setItem('projectArray', JSON.stringify(projectArray))
 
   }
-  
    
    return {
       storeItems,

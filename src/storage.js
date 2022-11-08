@@ -31,7 +31,7 @@ const storage = (function() {
       }
    }
 
-   
+  
    function renderStoredItems() {   
       
       let projectList = document.querySelector('#project-list')
@@ -86,11 +86,34 @@ renderStoredItems()
   }
   deleteProject()
 
+   
+   function deleteTodo() {
+      const mainHeader = document.querySelector('#main-header');
+      const deleteTodos = document.querySelectorAll('.close');
+      deleteTodos.forEach((deleteTodo) => {
+         deleteTodo.addEventListener('click', function(e) {
+            e.target.parentElement.remove()
+
+            let storage = JSON.parse(localStorage.getItem('projectArray'));
+            let targetProject = storage.find((p) => p.name == mainHeader.textContent);
+            let filteredTodo = targetProject.todos.filter((todo) => todo.title !== e.target.parentElement.children[1].textContent);
+
+            delete targetProject.todos;
+
+            targetProject.todos = filteredTodo;
+            let stored = storage.filter((p) => p.name !== mainHeader.textContent);
+
+            stored.push(targetProject);
+            localStorage.setItem('projectArray', JSON.stringify(stored));                             
+         })
+      })
+  }
+  deleteTodo()
+   
   function addToDoToStorage(itemToAdd) {
    const mainHeader = document.querySelector('#main-header');
    let array = JSON.parse(localStorage.getItem('projectArray'))
    let findObj = array.find((item) => item.name == mainHeader.textContent);
-   console.log(findObj)
    let projectArray = array.filter((props) => props.name !== mainHeader.textContent)
 
    findObj.todos.push(itemToAdd)
@@ -106,6 +129,7 @@ renderStoredItems()
       deleteProject,
       renderStoredItems,
       addToDoToStorage,
+      deleteTodo,
 
    }
 })()

@@ -20,6 +20,10 @@ class Project {
     addTodo(todo) {
         this.todos.push(todo);
     }
+
+    deleteTodo(todoTitle) {
+        this.todos.filter((todo) => todo.title !== todoTitle )
+    }
 }
 
 export default Project

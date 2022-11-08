@@ -104,55 +104,64 @@ const domElements = (function() {
             const section = document.querySelector('section');
             console.log(mainHeader)
             attach.addEventListener('click', function(e) {
-                
+            
                 e.stopPropagation()
                 section.innerHTML = ''
                 const addTodo = document.querySelector('.add-todo')
                 console.log(addTodo)
                 mainHeader.textContent = e.target.textContent;
-                addTodo.style.display = 'block'
-                
-                const todos = JSON.parse(localStorage.getItem('projectArray'))
-                console.log(todos)
-                let selectedTodo = todos.find((todo) => todo.name == e.target.textContent);
-                let selectedTodos = selectedTodo.todos;
-                console.log(selectedTodos)
+                addTodo.style.display = 'block'            
                
-                selectedTodos.forEach(todo => {
-                    
-                    const checkbox = document.createElement('input');
-                    const close = document.createElement('img');
-                    close.src = 'icons/close.png';
-                    close.classList.add('icon');
-                    close.classList.add('close')
-                    const edit = document.createElement('img');
-                    edit.src = 'icons/edit.png';
-                    edit.classList.add('icon');
-                    checkbox.type = 'checkbox'
-                    checkbox.setAttribute('id', 'checkbox');
-                    
-                    const titleAndDate = document.createElement('p');
-                    titleAndDate.classList.add('title-and-date')
-                    const title = document.createElement('div');
-                    const date = document.createElement('span');
-
-                    titleAndDate.appendChild(checkbox);
-                    titleAndDate.appendChild(title);
-                    titleAndDate.appendChild(date); 
-                    titleAndDate.appendChild(edit)
-                    titleAndDate.appendChild(close);                
-                    title.textContent = todo.title;
-                    date.textContent = todo.date;
-                    section.appendChild(titleAndDate);       
-                });
-                           
+                renderStoredTodo(e)
+               
+               
+                
             })
            
         }
     }
-   
-    AddEventsToProjects()
 
+    function renderStoredTodo(e) {
+        const section = document.querySelector('section');
+        const todos = JSON.parse(localStorage.getItem('projectArray'))
+        console.log(todos)
+        let selectedTodo = todos.find((todo) => todo.name == e.target.textContent);
+        let selectedTodos = selectedTodo.todos;
+        console.log(selectedTodos)
+    
+        selectedTodos.forEach(todo => {
+            
+            const checkbox = document.createElement('input');
+            const close = document.createElement('img');
+            close.src = 'icons/close.png';
+            close.classList.add('icon');
+            close.classList.add('close')
+            const edit = document.createElement('img');
+            edit.src = 'icons/edit.png';
+            edit.classList.add('icon');
+            checkbox.type = 'checkbox'
+            checkbox.setAttribute('id', 'checkbox');
+            
+            const titleAndDate = document.createElement('p');
+            titleAndDate.classList.add('title-and-date')
+            const title = document.createElement('div');
+            const date = document.createElement('span');
+
+            titleAndDate.appendChild(checkbox);
+            titleAndDate.appendChild(title);
+            titleAndDate.appendChild(date); 
+            titleAndDate.appendChild(edit)
+            titleAndDate.appendChild(close);                
+            title.textContent = todo.title;
+            date.textContent = todo.date;
+            section.appendChild(titleAndDate); 
+            storage.deleteTodo()
+                    
+        });
+    }
+
+    AddEventsToProjects()
+  
     function displayAddToDoForm() {
         addTodo.style.display = 'none'
         form.classList.remove('hide');
@@ -208,9 +217,13 @@ const domElements = (function() {
         const section = document.querySelector('section');    
         section.appendChild(createTodoListTitles())
         addTodo.classList.remove('hide') 
-        form.classList.add('hide')     
+        form.classList.add('hide') 
+        storage.deleteTodo()  
+        titleInput.value = ''
+        descriptionInput.value = ''
+        dateInput.value = ''  
     }
-                //  localStorage.clear()
+                    //  localStorage.clear()
     return{addEvent,
          createProjectElements,
        }

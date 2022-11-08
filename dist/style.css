@@ -209,7 +209,10 @@ fieldset {
     padding: 25px;
 }
 
- form > input {
+.add-form > input {
+    width: 200px;
+}
+ fieldset > div > input {
     width: 300px;
     padding: 10px;
     font-size: 1rem;
@@ -250,53 +253,31 @@ select {
 legend {
     font-size: 1.3rem;
 }
+
 .title-and-date{
     display: flex;
     margin-left: 50px;
     margin-right: 100px;
     padding: 8px;
-    gap: 100px;
-    
-    
+    gap: 100px;  
 }
 
 .title-and-date:hover {
-    background-color: rgb(157, 171, 196);
-    
-    
-}
-
-.title-and-date > img[src*='close'] {
-    padding-top: 10px;
-    
-    
-}
-
-.title-and-date > img[src*='edit'] {
-    padding-top: 10px;
-    
-    
-}
-
-.title-and-date > input {
-    
-
-
+    background-color: rgb(157, 171, 196);  
 }
 
 .title-and-date > div {
     width: 150px;
-
 }
 
 section {
     margin-bottom: 50px;
     font-size: 20px;
-
 }
 
 .title-and-date .icon {
     display: none;
+    padding-top: 15px;
 }
 
 .title-and-date:hover .icon {
@@ -306,5 +287,10 @@ section {
 .icon {
     width: 15px;
     height: 15px;
+    font-weight: 600;
+}
 
+.title-and-date Input{
+    width: 20px;
+    height: 20px;
 }

@@ -3,13 +3,14 @@ import storage from './storage.js'
 import Todo from './todo.js'
 
 const domElements = (function() {
+    const mainHeader = document.querySelector('#main-header');
     const project = document.querySelector('.add-project');
     const addForm = document.querySelector('.add-form');
     const cancel = document.querySelector('.cancel');
     const add = document.querySelector('.add');
     const deleteIcon =document.querySelector('.delete-icon');
     let projectValue = document.querySelector('#project')
-
+    const section = document.querySelector('section');
      const addTodo = document.querySelector('.add-todo');
      const form = document.querySelector('form');
      const cancelForm = document.querySelector('.cancel-form');
@@ -48,7 +49,25 @@ const domElements = (function() {
         addForm.classList.add('hide');
         project.style.display = 'block';
         projectValue.value = ''
-        }    
+        } 
+        
+        function displayAddToDoForm() {
+            form.classList.remove('details');
+            form.style.backgroundColor = 'rgb(183, 199, 214)';
+            addTodo.style.display = 'none'
+            form.classList.remove('hide');
+            addInputs.classList.remove('hide')
+            titleInput.disabled = false;
+            descriptionInput.disabled = false;
+            priorityInput.disabled = false;
+            dateInput.disabled = false;
+            titleInput.value = '';
+            descriptionInput.value = '';
+            
+            dateInput.value = '';
+            
+        }
+        
          
     function createProjectElements() {
         let projectInput = new Project(projectValue.value);
@@ -96,8 +115,7 @@ const domElements = (function() {
     
     }
     
-    function AddEventsToProjects() {
-        
+    function AddEventsToProjects() {     
         const attached = document.querySelectorAll('.attached');
         for(const attach of attached) {
             const mainHeader = document.querySelector('#main-header');
@@ -112,14 +130,53 @@ const domElements = (function() {
                 mainHeader.textContent = e.target.textContent;
                 addTodo.style.display = 'block'            
                
-                renderStoredTodo(e)
-               
-               
-                
-            })
-           
+                renderStoredTodo(e)       
+                addEventsToTodoListTitles()
+
+            })   
         }
     }
+
+    function addEventsToTodoListTitles() {
+        
+        const legend = document.querySelector('legend');
+        const main = document.querySelector('main')
+       
+        const titleAndDate = document.querySelectorAll('.title-and-date');
+        console.log(titleAndDate)
+        for(const title of titleAndDate) {
+            title.addEventListener('click', function(e) {
+        
+                const storage = JSON.parse(localStorage.getItem('projectArray'))
+                let targetProject = storage.find((p) => p.name == mainHeader.textContent);
+                console.log(targetProject)
+
+                let todos = targetProject.todos;
+                let targetTodo = todos.find((todo) => todo.title == e.target.children[1].textContent);
+                console.log(targetTodo)
+
+                section.classList.add('blur');
+                addTodo.classList.add('blur');
+                mainHeader.classList.add('blur');
+                form.classList.remove('hide')
+                form.classList.add('details');
+                form.style.backgroundColor = 'rgb(155, 153, 150)'
+                section.classList.add('parent-details')
+                addInputs.classList.add('hide');
+                titleInput.value = targetTodo.title;
+                titleInput.disabled = true;
+                descriptionInput.value = targetTodo.description;
+                descriptionInput.disabled = true;
+                priorityInput.value = targetTodo.priority;
+                priorityInput.disabled = true;
+                dateInput.value = targetTodo.date;
+                dateInput.disabled = true;
+                legend.textContent = targetTodo.title 
+                return;
+            })
+        }
+    }
+    
 
     function renderStoredTodo(e) {
         const section = document.querySelector('section');
@@ -138,7 +195,8 @@ const domElements = (function() {
             close.classList.add('close')
             const edit = document.createElement('img');
             edit.src = 'icons/edit.png';
-            edit.classList.add('icon');
+            edit.classList.add('icon', 'edit');
+            
             checkbox.type = 'checkbox'
             checkbox.setAttribute('id', 'checkbox');
             
@@ -162,12 +220,12 @@ const domElements = (function() {
 
     AddEventsToProjects()
   
-    function displayAddToDoForm() {
-        addTodo.style.display = 'none'
-        form.classList.remove('hide');
-    }
-
+    
     function cancelAddToDoForm() {
+        section.classList.remove('blur');
+        addTodo.classList.remove('blur');
+        mainHeader.classList.remove('blur');
+        section.classList.remove('parent-details')
         form.classList.add('hide');
         addTodo.style.display = 'block'   
     }
@@ -193,7 +251,8 @@ const domElements = (function() {
         close.classList.add('close')
         const edit = document.createElement('img');
         edit.src = 'icons/edit.png';
-        edit.classList.add('icon');
+        edit.classList.add('icon', 'edit');
+        
         checkbox.type = 'checkbox'
         checkbox.setAttribute('id', 'checkbox');
         
@@ -221,7 +280,8 @@ const domElements = (function() {
         storage.deleteTodo()  
         titleInput.value = ''
         descriptionInput.value = ''
-        dateInput.value = ''  
+        dateInput.value = '' 
+        addEventsToTodoListTitles(); 
     }
                     //  localStorage.clear()
     return{addEvent,

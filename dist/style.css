@@ -87,7 +87,11 @@ ul {
     background-color: rgb(224, 224, 193);
     grid-column: 2/6;
     grid-row: 2/4;
+    font-size: 1rem;
+    overflow: scroll;
+    position: relative;
 }
+
 .project-header {
     font-size: 25px;
     margin-left: 30px;
@@ -196,7 +200,7 @@ form {
     flex-direction: column;
     margin-left: 40px;
     width: 500px;
-    background-color: rgb(95, 95, 148);
+    background-color: rgb(183, 199, 214);
 
 }
 
@@ -245,11 +249,6 @@ select {
     background-color: brown;
 }
 
-#main {
-    font-size: 1rem;
-    overflow: scroll;
-}
-
 legend {
     font-size: 1.3rem;
 }
@@ -257,17 +256,21 @@ legend {
 .title-and-date{
     display: flex;
     margin-left: 50px;
-    margin-right: 100px;
+    margin-right: 70px;
     padding: 8px;
-    gap: 100px;  
+    gap: 150px; 
+    
 }
 
 .title-and-date:hover {
-    background-color: rgb(157, 171, 196);  
+    background-color: rgb(157, 171, 196);
+
 }
 
-.title-and-date > div {
-    width: 150px;
+.title-and-date > div {  
+    position: absolute;
+    left: 100px;
+
 }
 
 section {
@@ -277,11 +280,30 @@ section {
 
 .title-and-date .icon {
     display: none;
-    padding-top: 15px;
+    margin-top: 7px;
+    
+}
+
+.title-and-date span {
+    position: absolute;
+    right: 300px;
 }
 
 .title-and-date:hover .icon {
     display: block;
+}
+
+.title-and-date .icon:hover{
+    transform: scale(1.6);
+}
+.title-and-date .edit {
+    position: absolute;
+    right: 200px;
+}
+
+.title-and-date .close {
+    position: absolute;
+    right: 100px;
 }
 
 .icon {
@@ -293,4 +315,22 @@ section {
 .title-and-date Input{
     width: 20px;
     height: 20px;
+}
+.parent-details {
+    position: relative;
+    pointer-events: none;
+    
+    
+}
+
+.details {
+    position: absolute;
+    top: 20px;
+    left: 170px;
+}
+
+.blur {
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+
 }

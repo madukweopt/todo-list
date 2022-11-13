@@ -1,5 +1,3 @@
-
-
 import Project from "./project.js";
 import domElements from "./userInterface.js";
 
@@ -116,11 +114,8 @@ renderStoredItems()
    const mainHeader = document.querySelector('#main-header');
    let array = JSON.parse(localStorage.getItem('projectArray'))
    let findObj = array.find((item) => item.name == mainHeader.textContent);
-   console.log(findObj.todos)
-   let projectArray = array.filter((p) => p.name !== mainHeader.textContent)
-   console.log(projectArray)
+   let projectArray = array.filter((props) => props.name !== mainHeader.textContent)
 
-   findObj.todos = [];
    findObj.todos.push(itemToAdd)
    projectArray.push(findObj)
    localStorage.setItem('projectArray', JSON.stringify(projectArray))
@@ -140,3 +135,5 @@ renderStoredItems()
 })()
 
  export default storage
+
+

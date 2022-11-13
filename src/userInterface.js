@@ -130,7 +130,7 @@ const domElements = (function() {
                 mainHeader.textContent = e.target.textContent;
                 addTodo.style.display = 'block'            
                
-                renderStoredTodo(e)       
+                renderStoredTodo()       
                 addEventsToTodoListTitles()
 
             })   
@@ -152,8 +152,11 @@ const domElements = (function() {
                 console.log(targetProject)
 
                 let todos = targetProject.todos;
+                console.log(todos);
+
                 let targetTodo = todos.find((todo) => todo.title == e.target.children[1].textContent);
-                console.log(targetTodo)
+                console.log(targetTodo) 
+
 
                 section.classList.add('blur');
                 addTodo.classList.add('blur');
@@ -178,15 +181,18 @@ const domElements = (function() {
     }
     
 
-    function renderStoredTodo(e) {
+    function renderStoredTodo() {
+        const mainHeader = document.querySelector('#main-header');
+        console.log(mainHeader)
         const section = document.querySelector('section');
-        const todos = JSON.parse(localStorage.getItem('projectArray'))
-        console.log(todos)
-        let selectedTodo = todos.find((todo) => todo.name == e.target.textContent);
-        let selectedTodos = selectedTodo.todos;
-        console.log(selectedTodos)
+        const projects = JSON.parse(localStorage.getItem('projectArray'))
+        if(projects == null || projects == undefined || projects == '') return;
+        console.log(projects)
+        projects.forEach(p => {
+           let targetTodos = p.todos;
+            console.log(targetTodos)
     
-        selectedTodos.forEach(todo => {
+        targetTodos.forEach(todo => {
             
             const checkbox = document.createElement('input');
             const close = document.createElement('img');
@@ -216,6 +222,7 @@ const domElements = (function() {
             storage.deleteTodo()
                     
         });
+    })
     }
 
     AddEventsToProjects()
@@ -230,7 +237,8 @@ const domElements = (function() {
         addTodo.style.display = 'block'   
     }
 
-    function addFormInputsToProject() {      
+    function addFormInputsToProject() { 
+        if (priorityInput.value !== '' && titleInput.value !== '' && dateInput.value !== '') {   
         let title = titleInput.value
         let description = descriptionInput.value;
         let priority = priorityInput.value;
@@ -240,7 +248,10 @@ const domElements = (function() {
         storage.addToDoToStorage(todo);
         form.classList.add('hide')
         addTodo.style.display = 'block';
-        
+        }else{
+            alert('You must fill the form')
+            return;
+        }
     }
 
     function createTodoListTitles() {
@@ -282,8 +293,9 @@ const domElements = (function() {
         descriptionInput.value = ''
         dateInput.value = '' 
         addEventsToTodoListTitles(); 
+        
     }
-                    //  localStorage.clear()
+                    //   localStorage.clear()
     return{addEvent,
          createProjectElements,
        }
